@@ -1,6 +1,8 @@
 const clienteController = require('../controllers/cliente');
 const cuentaController = require('../controllers/cuenta');
 const transaccionController = require('../controllers/transaccion');
+const auth=require('../auth/auth');
+const { authenticate } = require('../auth/auth');
 
 module.exports = (app) => {
     app.get('/api', (_req, res) => res.status(200).send({
@@ -23,7 +25,11 @@ module.exports = (app) => {
     app.post('/api/transaccion/create/', transaccionController.create);
     app.get('/api/cuenta/find/:id/transacciones', cuentaController.findWithTransacciones);
 
+    //rutas de la app movil
     app.get('/api/cliente/finduser/:usuario/:password', clienteController.userLogin);
+    app.get('/api/cliente/findwithtoken/:id/cuentas', auth.authenticate, clienteController.findWithCuentas);
+
+    app.get('/api/cuenta/findtransacciones/:id/transacciones', auth.authenticate, cuentaController.findWithTransacciones);
 
 
 };
