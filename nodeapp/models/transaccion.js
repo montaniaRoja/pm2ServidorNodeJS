@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     cuenta_id: {type: DataTypes.INTEGER},
     tipo_movimiento: {type: DataTypes.STRING},
     monto: {type: DataTypes.DECIMAL},
-    fecha: {type: DataTypes.DATE}
+    fecha: {type: DataTypes.DATEONLY, defaultValue: DataTypes.NOW}
   }, {
     sequelize,
     modelName: 'Transaccion',
