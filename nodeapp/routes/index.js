@@ -38,7 +38,7 @@ module.exports = (app) => {
     app.get('/api/pagodetalle/list', pagoController.listPagosDetalles);
 
     app.post('/api/detallepago/create', detallePagoController.create);
-    app.get('/api/detallepago/find/:id_pago/:status', detallePagoController.find);
+    app.get('/api/detallepago/find/:clavepago/:status', detallePagoController.find);
     
 
 
