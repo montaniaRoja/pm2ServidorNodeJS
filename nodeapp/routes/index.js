@@ -1,6 +1,8 @@
 const clienteController = require('../controllers/cliente');
 const cuentaController = require('../controllers/cuenta');
 const transaccionController = require('../controllers/transaccion');
+const pagoController=require('../controllers/pago');
+const detallePagoController=require('../controllers/detalle');
 const auth=require('../auth/auth');
 const { authenticate } = require('../auth/auth');
 
@@ -30,6 +32,14 @@ module.exports = (app) => {
     app.get('/api/cliente/findwithtoken/:id/cuentas', auth.authenticate, clienteController.findWithCuentas);
 
     app.get('/api/cuenta/findtransacciones/:id/transacciones', auth.authenticate, cuentaController.findWithTransacciones);
+
+    app.post('/api/pago/create', pagoController.create);
+    app.get('/api/pago/list', pagoController.list);
+    app.get('/api/pagodetalle/list', pagoController.listPagosDetalles);
+
+    app.post('/api/detallepago/create', detallePagoController.create);
+    app.get('/api/detallepago/find/:id_pago/:status', detallePagoController.find);
+    
 
 
 };
