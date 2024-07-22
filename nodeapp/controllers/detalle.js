@@ -19,10 +19,10 @@ module.exports = {
             .catch(error => res.status(400).send({ message: error.message }));
     },
     find(req, res) {
-        const { id_pago, status } = req.params;
+        const { clavepago, status } = req.params;
 
         return Detallepago.findOne({
-            where: { id_pago: id_pago, status: status }
+            where: { clavepago: clavepago, status: status }
         })
             .then(detallepago => {
                 if (!detallepago) {
