@@ -31,7 +31,22 @@ module.exports = {
                 return res.status(200).send(detallepago);
             })
             .catch(error => res.status(400).send({ message: error.message }));
+    },
+    updateStatus(req, res) {
+        const { clavepago } = req.params;
+
+        return Detallepago.findOne({
+            where: { clavepago: clavepago }
+        })
+            .then(detallepago => {
+                if (!detallepago) {
+                    return res.status(404).send({ message: 'Pago no encontrado' });
+                }
+
+                return detallepago.update({ status: 'Pagado' })
+                    .then(() => res.status(200).send({ message: 'Estado actualizado a Pagado' }))
+                    .catch(error => res.status(400).send({ message: error.message }));
+            })
+            .catch(error => res.status(400).send({ message: error.message }));
     }
-
-
-}
+};
