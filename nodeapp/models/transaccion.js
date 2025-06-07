@@ -15,15 +15,23 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Transaccion.init({
-    cuenta_id: {type: DataTypes.INTEGER},
-    tipo_movimiento: {type: DataTypes.STRING},
-    monto: {type: DataTypes.DECIMAL},
-    fecha: {type: DataTypes.DATEONLY, defaultValue: DataTypes.NOW}
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    cuenta_id: { type: DataTypes.INTEGER },
+    tipo_movimiento: { type: DataTypes.STRING },
+    monto: { type: DataTypes.DECIMAL },
+    cajero:{type: DataTypes.INTEGER},
+    fecha: { type: DataTypes.DATEONLY, defaultValue: DataTypes.NOW }
   }, {
     sequelize,
     modelName: 'Transaccion',
-    tableName: 'tbl_transacciones',
-    timestamps: true
+    tableName: 'transaccions',
+    timestamps: true,
+    underscored: true
+
   });
   return Transaccion;
 };

@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Detallepago.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     id_pago: { type: DataTypes.INTEGER, allowNull: false },
     clavepago: { type: DataTypes.STRING, allowNull: false },
     monto: { type: DataTypes.FLOAT, allowNull: true },
@@ -23,8 +28,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Detallepago',
-    tableName: 'tbl_detallepagos', // Asegurarse de que el nombre de la tabla esté entre comillas
-    timestamps: true
+    tableName: 'payment_details', // Asegurarse de que el nombre de la tabla esté entre comillas
+    timestamps: true,
+    underscored: true
   });
   return Detallepago;
 };

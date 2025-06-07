@@ -27,7 +27,7 @@ module.exports = (app) => {
     app.post('/api/transaccion/create/', transaccionController.create);
     app.get('/api/cuenta/find/:id/transacciones', cuentaController.findWithTransacciones);
 
-    //rutas de la app movil
+    //rutas de la app movil 
     app.get('/api/cliente/finduser/:usuario/:password', clienteController.userLogin);
     app.get('/api/cliente/findwithtoken/:id/cuentas', auth.authenticate, clienteController.findWithCuentas);
 

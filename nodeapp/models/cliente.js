@@ -4,15 +4,22 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Cliente extends Model {
     static associate(models) {
-      // define association here
       Cliente.hasMany(models.Cuenta, { foreignKey: 'id_cliente' });
+      // Puedes agregar aquí la relación con el modelo User si lo necesitas
+      // Cliente.belongsTo(models.User, { foreignKey: 'creado_por' });
     }
   }
 
   Cliente.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     no_doc: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     nombre: {
       type: DataTypes.STRING,
@@ -22,27 +29,36 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    telefono: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     direccion: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    creado_por: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    keyword: {
+      type: DataTypes.STRING,
+      allowNull: true
     },
     usuario: {
       type: DataTypes.STRING,
       allowNull: true
     },
     clave_secreta: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    keyword: {
       type: DataTypes.STRING,
       allowNull: true
     }
   }, {
     sequelize,
     modelName: 'Cliente',
-    tableName: 'tbl_clientes',
-    timestamps: true
+    tableName: 'customers',
+    timestamps: true,
+    underscored: true
   });
 
   return Cliente;

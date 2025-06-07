@@ -107,9 +107,10 @@ module.exports = {
             }
 
             const clave = getRandomInt();
+            const hashedClave = bcrypt.hashSync(clave.toString(), 10);
 
             const [updated] = await Cliente.update(
-                { clave_secreta: clave },
+                { clave_secreta: hashedClave },
                 { where: { correo } }
             );
 

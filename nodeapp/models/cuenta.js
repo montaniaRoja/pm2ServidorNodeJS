@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Cuenta.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     no_cuenta: {
       type: DataTypes.STRING,
       allowNull: false
@@ -26,12 +31,17 @@ module.exports = (sequelize, DataTypes) => {
     saldo: {
       type: DataTypes.FLOAT,
       allowNull: true
-  }
+    },
+    creado_por: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
   }, {
     sequelize,
     modelName: 'Cuenta',
-    tableName: 'tbl_cuentas',
-    timestamps: true
+    tableName: 'accounts',
+    timestamps: true,
+    underscored: true
   });
   return Cuenta;
 };

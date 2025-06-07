@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "root",
+    "username": "adolfo",
     "password": "ofloda01",
-    "database": "bank_database",
+    "database": "bankappdb",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   },
   "test": {
-    "username": "adolfoc",
+    "username": "adolfo",
     "password": "ofloda01",
-    "database": "bank_database",
+    "database": "bankappdb",
     "host": "34.42.1.3",
-    "dialect": "mysql"
+    "dialect": "postgres"
   },
   "production": {
-    "username": "adolfoc",
+    "username": "adolfo",
     "password": "ofloda01",
-    "database": "bank_database",
+    "database": "bankappdb",
     "host": "34.42.1.3",
-    "dialect": "mysql"
+    "dialect": "postgres"
   }
 }

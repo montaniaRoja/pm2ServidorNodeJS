@@ -15,12 +15,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Pago.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     nombre_pago: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Pago',
-    tableName: 'tbl_pagos', // Asegurarse de que el nombre de la tabla esté entre comillas
-    timestamps: true
+    tableName: 'payments', // Asegurarse de que el nombre de la tabla esté entre comillas
+    timestamps: true,
+    underscored: true
   });
   return Pago;
 };
