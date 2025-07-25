@@ -39,8 +39,7 @@ module.exports = (app) => {
 
     app.post('/api/detallepago/create', detallePagoController.create);
     app.get('/api/detallepago/find/:clavepago/:status', detallePagoController.find);
-    app.patch('/api/detallepago/update/:clavepago', detallePagoController.updateStatus);
-    
+    app.patch('/api/detallepago/update/:clavepago', detallePagoController.updateStatus);   
 
 
 };

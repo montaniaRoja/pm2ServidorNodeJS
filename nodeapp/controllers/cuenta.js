@@ -1,5 +1,5 @@
 const { Cuenta, Transaccion, Cliente } = require('../models');  // Asegúrate de que la ruta sea correcta
-const bcrypt=require ('bcryptjs');
+const bcrypt = require('bcryptjs');
 
 module.exports = {
     create(req, res) {
@@ -76,35 +76,49 @@ module.exports = {
     },
     async findWithClienteId(req, res) {
         const { no_cuenta, usuario, keyword, clave } = req.body;
-    
+
         if (!no_cuenta || !usuario || !keyword || !clave) {
             return res.status(400).send({ message: 'Todos los campos son requeridos' });
         }
-    
+
         try {
             const cuenta = await Cuenta.findOne({
                 where: { no_cuenta },
             });
-            
+
             if (!cuenta) {
                 return res.status(404).send({ message: 'Cuenta no encontrada' });
             }
-    
-            const salt = bcrypt.genSaltSync(10);
-            const hash = bcrypt.hashSync(keyword, salt);
-    
+
+            // Buscar al cliente por ID
+            const cliente = await Cliente.findOne({
+                where: { id: cuenta.id_cliente },
+            });
+
+            if (!cliente) {
+                return res.status(404).send({ message: 'Cliente no encontrado' });
+            }
+
+            // Verificar clave secreta (texto plano vs hash guardado)
+            const claveValida = bcrypt.compareSync(clave.toString(), cliente.clave_secreta);
+
+            if (!claveValida) {
+                return res.status(401).send({ message: 'Clave secreta incorrecta' });
+            }
+
+            // Si la clave es válida, hashear la nueva keyword
+            const hash = bcrypt.hashSync(keyword, 10);
+
+            // Actualizar usuario y keyword
             const [rowsUpdated] = await Cliente.update(
                 { usuario, keyword: hash },
-                { where: { id: cuenta.id_cliente, clave_secreta: clave } } 
+                { where: { id: cuenta.id_cliente } }
             );
-    
-            if (rowsUpdated === 0) {
-                return res.status(404).send({ message: 'Cliente o correo no encontrado' });
-            }
-    
+
             return res.status(200).send({ message: 'Usuario actualizado exitosamente' });
         } catch (error) {
             return res.status(400).send({ message: error.message });
         }
-    }     
-    };
+    }
+
+};

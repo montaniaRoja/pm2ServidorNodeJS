@@ -141,14 +141,19 @@ module.exports = {
             if (!isMatch) {
                 return res.status(401).send("Email o contraseña incorrecta!");
             } else {
-                const payload = { id: user.id, nombre: user.nombre };
+                const plainUser = user.get({ plain: true });
+                plainUser.id = parseInt(plainUser.id); // asegúrate de que sea un número
+
+                const payload = { id: plainUser.id, nombre: plainUser.nombre };
                 const token = jwt.sign(payload, SECRET_KEY);
-                return res.status(200).json({ user, token });
+
+                return res.status(200).json({ user: plainUser, token });
+
             }
 
-        }catch(error) {
+        } catch (error) {
             console.log(error);
             return res.status(500).send("login: Hubo un error" + error);
+        }
     }
-}
 };

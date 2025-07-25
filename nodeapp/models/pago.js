@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    nombre_pago: DataTypes.STRING
+    nombre_pago: {type: DataTypes.STRING},
+    rtn: {type: DataTypes.STRING},
+    telefono: {type: DataTypes.STRING},
+    creado_por:{type: DataTypes.INTEGER},
   }, {
     sequelize,
     modelName: 'Pago',
