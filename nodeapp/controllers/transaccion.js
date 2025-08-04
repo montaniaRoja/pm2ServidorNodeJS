@@ -2,6 +2,7 @@ const { Transaccion } = require('../models');  // Asegúrate de que la ruta sea 
 
 module.exports = {
     create(req, res) {
+        console.log('Datos recibidos', req.body);
         const { cuenta_id, tipo_movimiento, monto, } = req.body;
 
         if (!cuenta_id || !tipo_movimiento || !monto) {
@@ -11,7 +12,9 @@ module.exports = {
         return Transaccion.create({
             cuenta_id,
             tipo_movimiento,
-            monto
+            monto,
+            fecha: new Date(),
+            cajero: 1
             
         })
         .then(transaccion => res.status(201).send(transaccion))
